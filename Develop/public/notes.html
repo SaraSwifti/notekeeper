@@ -37,5 +37,35 @@
   </div>
   <script src="/assets/js/index.js"></script>
 </body>
+<script type="text/javascript">
+//function for catpturing the data from the api route and allows to display data on html page
+function runNoteQuery() {
+  var currentURL = window.location.origin;
+  $.ajax({url: currentURL + "/api/notes", method: "GET"}).done(function(noteData) {
+    console.log("-----------------------------------");
+    console.log("URL: " + currentURL + "api/notes");
+    console.log("-----------------------------------");
+    console.log (noteData);
+    console.log("-----------------------------------");
+///creating the note title array and text area array per note id # 
+    for (var i=0; i<noteData.length; i++) {
+      console.log(noteData[i]);
+      var noteTitle = $("<div>");
+        noteTitle.addClass("note-title");
+        noteTitle.attr("id", "titleSec-" + i+1);
+        $("#noteTitle").append(titleSection);
+        var noteBody = $("<div>");
+          noteBody.addClass("note-textarea");
+          noteBody.attr("id", "noteSec-" + i+1);
+          $('#noteBody').append("Placeholder?");
+
+          var noteNumber = i + 1;
+          $('#titleSec-' + i+1).append('<html container for the data that needs to be created>' + noteNumber + "</span> | " + noteData[i].noteid + "</h2>");
+
+    }
+  });
+}
+  runNoteQuery();
+  </script>
 
 </html>
