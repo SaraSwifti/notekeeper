@@ -58,8 +58,9 @@ module.exports = function (app) {
                 if (err) throw err;
                 return true;
             });
-        }
+        };
 
 
 
-    })
+    });
+}

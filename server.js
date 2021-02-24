@@ -1,18 +1,22 @@
- var bodyParser = require('body-parser');
+ //dependencies
  const express = require('express');
- var path = require('path');
+ const path = require('path');
+ const fs = require('fs');
+
+ //initialize express app
  const app = express();
  var PORT = process.env.PORT || 8080;
 
- //body parser api call
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+ //set-up data parsing
+app.use(express.urlencoded({ extended: true}));
+
  
 // parse application/json
 app.use(bodyParser.json());
- 
+app.use(express.json());
+app.use(express.static(__dirname));
 require('./Develop/routing/api_routes.js')(app);
-require('./Develop/routing/html_routes.js')(app);
+
 
 app.listen(PORT, function() {
     console.log('App listening on PORT ' + PORT);
