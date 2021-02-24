@@ -1,8 +1,11 @@
-let noteTitle;
-let noteText;
-let saveNoteBtn;
-let newNoteBtn;
-let noteList;
+let noteTitle = $('.note-title');
+let noteText = $('.note-text');
+let saveNoteBtn = $('.save-note');
+let newNoteBtn = $('new-note');
+let noteList = $('.list-conatiner .list-group');
+
+// activeNote is used to keep track of the note in the textarea
+let activeNote = {};
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
@@ -11,6 +14,7 @@ if (window.location.pathname === '/notes') {
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
 }
+
 
 // Show an element
 const show = (elem) => {
@@ -22,9 +26,8 @@ const hide = (elem) => {
   elem.style.display = 'none';
 };
 
-// activeNote is used to keep track of the note in the textarea
-let activeNote = {};
 
+//funct to caputure input of notes
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -50,6 +53,7 @@ const deleteNote = (id) =>
     },
   });
 
+  //funct to display note in main container
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
@@ -64,6 +68,7 @@ const renderActiveNote = () => {
   }
 };
 
+//retrieves data from inputs, saves to db update ouput view
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
@@ -106,6 +111,7 @@ const handleNewNoteView = (e) => {
   renderActiveNote();
 };
 
+// If title/notes are empty, hide save button else show it. 
 const handleRenderSaveBtn = () => {
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
